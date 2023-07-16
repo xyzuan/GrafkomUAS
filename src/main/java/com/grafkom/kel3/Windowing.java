@@ -1,4 +1,4 @@
-package com.example.grafkom;
+package com.grafkom.kel3;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,8 +13,8 @@ public class Windowing extends JFrame {
         clipWindow = new Rectangle(63, 63, 500, 500);
         viewport = new Rectangle(174, 174, 300, 300);
 
-        setTitle("Windowing Mouse");
-        setSize(500, 500);
+        setTitle("Windowing - Inputan Mouse");
+        setSize( 650, 650);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         final JPanel panel = new JPanel() {
@@ -27,15 +27,23 @@ public class Windowing extends JFrame {
 
                 // Menggambar clip window
                 g2d.setColor(Color.GRAY);
+                g2d.setStroke(new BasicStroke(2));
                 g2d.drawRect(clipWindow.x, clipWindow.y, clipWindow.width, clipWindow.height);
 
                 // Menggambar viewport
                 g2d.setColor(Color.RED);
+                g2d.setStroke(new BasicStroke(2));
                 g2d.drawRect(viewport.x, viewport.y, viewport.width, viewport.height);
 
                 // Menggambar objek di dalam viewport
                 g2d.setColor(Color.BLUE);
                 g2d.fillRect(viewport.x, viewport.y, viewport.width, viewport.height);
+
+                // Menambahkan tampilan koordinat
+                g2d.setColor(Color.BLACK);
+                g2d.setFont(new Font("Arial", Font.PLAIN, 12));
+                g2d.drawString("Clip Window: (" + clipWindow.x + ", " + clipWindow.y + ")", 10, 20);
+                g2d.drawString("Viewport: (" + viewport.x + ", " + viewport.y + ")", 10, 40);
             }
         };
 

@@ -4,6 +4,6 @@ module com.example.grafkom {
     requires java.desktop;
 
 
-    opens com.example.grafkom to javafx.fxml;
-    exports com.example.grafkom;
+    opens com.grafkom.kel3 to javafx.fxml;
+    exports com.grafkom.kel3;
 }
