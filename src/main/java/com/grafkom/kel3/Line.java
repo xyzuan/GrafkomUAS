@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Line extends Application {
-    private List<Double> coordinates;
+    private List<Integer> coordinates;
     private boolean isDrawing;
 
     @Override
@@ -29,7 +29,7 @@ public class Line extends Application {
 
         canvas.setOnMousePressed(event -> {
             if (!isDrawing) {
-                startDrawing(event.getX(), event.getY());
+                startDrawing((int) event.getX(), (int) event.getY());
                 isDrawing = true;
                 redraw(canvas, gc);
                 isDrawing = false;
@@ -42,31 +42,57 @@ public class Line extends Application {
         primaryStage.show();
     }
 
-    private void startDrawing(double x, double y) {
+    private void startDrawing(int x, int y) {
         coordinates.add(x);
         coordinates.add(y);
+    }
+
+    private void bresenhamLine(int x1, int y1, int x2, int y2, GraphicsContext gc) {
+        int dx = Math.abs(x2 - x1);
+        int dy = Math.abs(y2 - y1);
+        int sx = (x1 < x2) ? 1 : -1;
+        int sy = (y1 < y2) ? 1 : -1;
+        int err = dx - dy;
+
+        while (true) {
+            gc.strokeLine(x1, y1, x1, y1);
+
+            if (x1 == x2 && y1 == y2) {
+                break;
+            }
+
+            int err2 = 2 * err;
+            if (err2 > -dy) {
+                err -= dy;
+                x1 += sx;
+            }
+            if (err2 < dx) {
+                err += dx;
+                y1 += sy;
+            }
+        }
     }
 
     private void redraw(Canvas canvas, GraphicsContext gc) {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         for (int i = 0; i < coordinates.size() - 2; i += 2) {
-            double startX = coordinates.get(i);
-            double startY = coordinates.get(i + 1);
-            double endX = coordinates.get(i + 2);
-            double endY = coordinates.get(i + 3);
+            int startX = coordinates.get(i);
+            int startY = coordinates.get(i + 1);
+            int endX = coordinates.get(i + 2);
+            int endY = coordinates.get(i + 3);
 
-            gc.strokeLine(startX, startY, endX, endY);
+            bresenhamLine(startX, startY, endX, endY, gc);
         }
 
         // Menampilkan koordinat setiap titik
         gc.setFill(Color.RED);
         gc.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
         for (int i = 0; i < coordinates.size() - 1; i += 2) {
-            double x = coordinates.get(i);
-            double y = coordinates.get(i + 1);
-            gc.fillText(String.format("Titik - %d", i/2 + 1), x + 5, y - 20);
-            gc.fillText(String.format("(%.2f, %.2f)", x, y), x + 5, y - 5);
+            int x = coordinates.get(i);
+            int y = coordinates.get(i + 1);
+            gc.fillText(String.format("Titik - %d", i / 2 + 1), x + 5, y - 20);
+            gc.fillText(String.format("(%d, %d)", x, y), x + 5, y - 5);
         }
     }
 
