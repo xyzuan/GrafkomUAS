@@ -6,8 +6,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Windowing extends JFrame {
-    private Rectangle clipWindow;
-    private Rectangle viewport;
+    private final Rectangle clipWindow;
+    private final Rectangle viewport;
 
     public Windowing() {
         clipWindow = new Rectangle(63, 63, 500, 500);
@@ -67,12 +67,9 @@ public class Windowing extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                Windowing windowing = new Windowing();
-                windowing.setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            Windowing windowing = new Windowing();
+            windowing.setVisible(true);
         });
     }
 }

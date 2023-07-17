@@ -47,16 +47,6 @@ public class Line extends Application {
         coordinates.add(y);
     }
 
-    private void continueDrawing(double x, double y) {
-        coordinates.add(x);
-        coordinates.add(y);
-    }
-
-    private void endDrawing(double x, double y) {
-        coordinates.add(x);
-        coordinates.add(y);
-    }
-
     private void redraw(Canvas canvas, GraphicsContext gc) {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 

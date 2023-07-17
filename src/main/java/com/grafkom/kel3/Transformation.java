@@ -2,19 +2,21 @@ package com.grafkom.kel3;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 
 public class Transformation extends JFrame {
     private Point initialMousePosition;
-    private AffineTransform transform;
-    private JLabel transformedPositionLabel;
+    private final AffineTransform transform;
+    private final JLabel transformedPositionLabel;
 
     public Transformation() {
-        setTitle("Transformasi - Inputan Mouse");
+        setTitle("Transformasi - Inputan Mouse dan Keyboard");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 400);
+        setSize(800, 800);
         setLocationRelativeTo(null);
 
         transform = new AffineTransform();
@@ -27,6 +29,29 @@ public class Transformation extends JFrame {
 
             public void mouseReleased(MouseEvent e) {
                 initialMousePosition = null;
+            }
+        });
+
+        addKeyListener(new KeyListener() {
+            public void keyTyped(KeyEvent e) {
+            }
+
+            public void keyPressed(KeyEvent e) {
+                int keyCode = e.getKeyCode();
+                if (keyCode == KeyEvent.VK_LEFT) {
+                    transform.rotate(-Math.toRadians(10));
+                } else if (keyCode == KeyEvent.VK_RIGHT) {
+                    transform.rotate(Math.toRadians(10));
+                } else if (keyCode == KeyEvent.VK_UP) {
+                    transform.scale(1.1, 1.1);
+                } else if (keyCode == KeyEvent.VK_DOWN) {
+                    transform.scale(0.9, 0.9);
+                }
+                updateTransformedPosition();
+                repaint();
+            }
+
+            public void keyReleased(KeyEvent e) {
             }
         });
 
@@ -69,13 +94,11 @@ public class Transformation extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                Transformation app = new Transformation();
-                app.setVisible(true);
-                app.updateTransformedPosition();
-            }
+        SwingUtilities.invokeLater(() -> {
+            Transformation app = new Transformation();
+            app.setVisible(true);
+            app.updateTransformedPosition();
         });
     }
 }
+

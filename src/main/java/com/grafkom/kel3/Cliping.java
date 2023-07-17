@@ -1,4 +1,5 @@
 package com.grafkom.kel3;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -8,7 +9,7 @@ public class Cliping extends JFrame {
     private final Rectangle clipWindow;
     private final Rectangle shape;
 
-    private JLabel clipPositionLabel;
+    private final JLabel clipPositionLabel;
 
     public Cliping() {
         clipWindow = new Rectangle(63, 63, 150, 150);
@@ -84,12 +85,9 @@ public class Cliping extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                Cliping cliping = new Cliping();
-                cliping.setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            Cliping cliping = new Cliping();
+            cliping.setVisible(true);
         });
     }
 }
