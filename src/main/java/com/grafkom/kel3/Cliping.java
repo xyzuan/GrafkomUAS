@@ -45,10 +45,6 @@ public class Cliping extends JFrame {
                 int clippedWidth = Math.min(shape.x + shape.width, clipWindow.x + clipWindow.width) - clippedX;
                 int clippedHeight = Math.min(shape.y + shape.height, clipWindow.y + clipWindow.height) - clippedY;
 
-                g2d.setColor(Color.BLACK);
-                g2d.setFont(new Font("Arial", Font.PLAIN, 12));
-                g2d.drawString("Clipped Area: (" + clippedX + ", " + clippedY + ", " + clippedWidth + ", " + clippedHeight + ")", 10, 20);
-
                 // Menggambar batas area yang di-clip dengan algoritma Bresenham
                 g2d.setColor(Color.BLUE);
                 drawBresenhamLine(g2d, clippedX, clippedY, clippedX + clippedWidth, clippedY);
@@ -88,7 +84,7 @@ public class Cliping extends JFrame {
         int clippedWidth = Math.min(shape.x + shape.width, clipWindow.x + clipWindow.width) - clippedX;
         int clippedHeight = Math.min(shape.y + shape.height, clipWindow.y + clipWindow.height) - clippedY;
 
-        clipPositionLabel.setText("Clipped Area: (" + clippedX + ", " + clippedY + ", " + clippedWidth + ", " + clippedHeight + ")");
+        clipPositionLabel.setText("Clipped Area: (" + clippedWidth + ", " + clippedHeight + ") " + "Clipped Coordinate: ( x: "  + clippedX + ", y:"  + clippedY + ")");
     }
 
     private void drawBresenhamLine(Graphics2D g, int x1, int y1, int x2, int y2) {

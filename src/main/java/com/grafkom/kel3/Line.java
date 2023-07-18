@@ -70,6 +70,8 @@ public class Line extends Application {
                 err += dx;
                 y1 += sy;
             }
+            System.out.println(x1);
+            System.out.println(y1);
         }
     }
 
